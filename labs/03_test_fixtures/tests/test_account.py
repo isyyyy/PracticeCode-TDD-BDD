@@ -49,5 +49,3 @@ class TestAccountModel(TestCase):
             account = Account(**data)
             account.create()
         self.assertEqual(len(Account.all()),len(ACCOUNT_DATA))
-
-        self.assertRaises()
