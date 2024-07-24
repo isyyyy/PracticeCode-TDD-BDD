@@ -11,3 +11,19 @@ from behave import given
 
 # Load data here
 
+
+@given('the following pets')
+def step_impl(context):
+    """Load the database with new pets """
+    for row in context.table:
+        payload = {
+            "name": row['name'],
+            "category": row['category'],
+            "available": row['available'] in ['True', 'true', '1']
+        }
+
+        context.resp = requests.post(
+            f"{context.base_url}/pets",
+            json=payload
+        )
+        assert context.resp.status_code is 201
